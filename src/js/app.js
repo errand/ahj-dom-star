@@ -26,8 +26,15 @@ import data from '../data.json';
     </tr>`);
   });
 
-  buttons.forEach(el => el.addEventListener('click', (ev) => {
-    console.log(el);
-    console.log(table.querySelectorAll('tr'));
+  buttons.forEach(el => el.addEventListener('click', () => {
+    const rows = [...table.querySelectorAll('tr')];
+    rows.sort((a, b) => {
+      if (a.dataset.click < b.dataset.click) { return -1; }
+      if (a.dataset.click > b.dataset.click) { return 1; }
+      return 0;
+    });
+    rows.forEach(tr => {
+      table.insertAdjacentElement('beforeend', tr);
+    });
   }));
 })();
