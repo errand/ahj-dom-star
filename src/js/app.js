@@ -6,25 +6,7 @@ import data from '../data.json';
   const table = document.createElement('table');
   container.append(table);
 
-  table.insertAdjacentHTML('afterbegin', ''
-    + '<tr>'
-    + '<th data-click="id">id</th>'
-    + '<th data-click="title">title</th>'
-    + '<th data-click="year">year</th>'
-    + '<th data-click="imdb">imdb</th></tr>');
-
-  movies.forEach(el => {
-    const imdb = (el.imdb).toFixed(2);
-    table.insertAdjacentHTML('beforeend', `
-    <tr data-id="${el.id}" data-title="${el.title}" data-year="${el.year}" data-imdb="${imdb}">
-      <td>${el.id}</td>
-      <td>${el.title}</td>
-      <td>(${el.year})</td>
-      <td>${imdb}</td>
-    </tr>`);
-  });
-
-  function tableBuilder(rows) {
+  function buildTable(rows) {
     table.querySelectorAll('tr').forEach(tr => tr.remove());
 
     table.insertAdjacentHTML('afterbegin', ''
@@ -35,7 +17,7 @@ import data from '../data.json';
       + '<th data-click="imdb">imdb</th></tr>');
 
     const buttons = table.querySelectorAll('th[data-click]');
-    buttons.forEach(el => el.addEventListener('click', () => clickTh()));
+    buttons.forEach(el => el.addEventListener('click', () => clickTh(el.dataset.click)));
 
     rows.forEach(el => {
       const imdb = (el.imdb).toFixed(2);
@@ -49,18 +31,23 @@ import data from '../data.json';
     });
   }
 
-  const buttons = table.querySelectorAll('th[data-click]');
-
-  buttons.forEach(el => el.addEventListener('click', () => clickTh()));
-
-  function clickTh() {
-    const rows = [...table.querySelectorAll('tr')];
-    rows.sort((a, b) => {
-      if (a.dataset.click < b.dataset.click) { return -1; }
-      if (a.dataset.click > b.dataset.click) { return 1; }
+  function clickTh(click) {
+    const sorted = movies.sort((a, b) => {
+      if (a.click < b.click) { return -1; }
+      if (a.click > b.click) { return 1; }
       return 0;
     });
-    console.log(rows);
-    tableBuilder(rows);
+    buildTable(sorted);
   }
+
+  function clickTh(key) {
+    const sorted = movies.sort((a, b) => {
+      if (a[key] < b[key]) { return -1; }
+      if (a[key] > b[key]) { return 1; }
+      return 0;
+    });
+    buildTable(sorted);
+  }
+
+  buildTable(movies);
 })();
