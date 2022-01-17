@@ -16,6 +16,7 @@ import data from '../data.json';
     + '</thead><tbody></tbody>');
 
   const buttons = table.querySelectorAll('th[data-click]');
+  // eslint-disable-next-line no-use-before-define
   buttons.forEach(el => el.addEventListener('click', () => clickTh(el)));
 
   function buildTable(rows) {
@@ -38,6 +39,9 @@ import data from '../data.json';
       buildTable(immutabelMovies);
       el.classList.remove('active');
     } else {
+      if (table.querySelector('th.active')) {
+        table.querySelector('th.active').classList.remove('active');
+      }
       const sorted = movies.sort((a, b) => {
         if (a[el.dataset.click] < b[el.dataset.click]) { return -1; }
         if (a[el.dataset.click] > b[el.dataset.click]) { return 1; }
