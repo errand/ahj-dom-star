@@ -1,6 +1,7 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/n6hvstus93qk58oh?svg=true)](https://ci.appveyor.com/project/errand/ahj-dom)
+[![Build status](https://ci.appveyor.com/api/projects/status/y2i1r3i068guubc2?svg=true)](https://ci.appveyor.com/project/errand/ahj-dom-star)
 
-[GH Pages](https://errand.github.io/ahj-dom/) 
+
+[GH Pages](https://errand.github.io/ahj-dom-star/) 
 
 ---
 
